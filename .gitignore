@@ -24,3 +24,5 @@ hs_err_pid*
 .gitignore
 target
 build
+.idea
+scoring.iml
