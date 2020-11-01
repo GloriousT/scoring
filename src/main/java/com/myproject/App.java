@@ -21,13 +21,12 @@ public class App {
     }
 
     private static ValidatableResponse getPriceHistory(String ticker) {
-        var start = LocalDateTime.of(2010, 12, 1, 0, 0, 0).toEpochSecond(UTC);
-        var end = LocalDateTime.now().toEpochSecond(UTC);
+        var end = LocalDateTime.now().withDayOfMonth(1).minusMonths(1);
         return given()
                 .basePath("/v8/finance/chart")
                 .queryParam("symbol", ticker)
-                .queryParam("period1", start)
-                .queryParam("period2", end)
+                .queryParam("period1", end.minusYears(10))
+                .queryParam("period2", end.toEpochSecond(UTC))
                 .queryParam("interval", "3mo")
                 .get(ticker)
                 .then().log().all();

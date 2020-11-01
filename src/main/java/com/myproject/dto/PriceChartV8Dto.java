@@ -55,7 +55,7 @@ public class PriceChartV8Dto {
     public Map<LocalDateTime, BigDecimal> getPrices() {
         var result = this.chart.getResult();
         var timestamps = result.timestamp;
-        timestamps.remove(timestamps.size() - 1);
+//        timestamps.remove(timestamps.size() - 1);
         var prices = result.indicators.getAdjclose().adjclose;
         Map<LocalDateTime, BigDecimal> pricesWithDate = new OrderedHashMap<>();
         timestamps
