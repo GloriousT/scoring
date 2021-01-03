@@ -14,6 +14,7 @@ import static java.time.ZoneOffset.UTC;
 
 @Slf4j
 public class App {
+
     public static void main(String[] args) {
         var price = getPriceHistory("LMT")
                 .extract().as(PriceChartV8Dto.class, GSON);
