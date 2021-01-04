@@ -50,7 +50,7 @@ public class PriceChartV8Dto {
         }
     }
 
-    public BigInteger getPriceChange() {
+    public BigInteger get10YearsPriceChange() {
         var prices = new ArrayList<>(getPrices().values());
         return getAverageFor40Elements(prices)
                 .multiply(BigDecimal.valueOf(100))
@@ -97,6 +97,7 @@ public class PriceChartV8Dto {
                             LocalDateTime.ofEpochSecond(it, 0, ZoneOffset.UTC),
                             prices.get(currentIndex));
                 });
+        pricesWithDate.forEach((key, value) -> log.info(key + "  " + value));
         return pricesWithDate;
     }
 }
