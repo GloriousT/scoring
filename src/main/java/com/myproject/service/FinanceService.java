@@ -8,9 +8,13 @@ import io.restassured.path.xml.element.Node;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 import static io.restassured.mapper.ObjectMapperType.GSON;
+import static java.math.MathContext.DECIMAL64;
 
 @Slf4j
 @AllArgsConstructor
@@ -18,6 +22,16 @@ public class FinanceService {
 
     private final YFinanceClient financeClient;
     private final MacroTrendsClient macroTrendsClient;
+
+    public BigDecimal getPriceGrowthToEarningsGrowthRatio() {
+        var priceChange = getPriceChange();
+        var earningsChange = getEarningsChange();
+        var ratio = new BigDecimal(priceChange)
+                .divide(new BigDecimal(earningsChange), DECIMAL64)
+                .setScale(2, RoundingMode.CEILING);
+        log.info("Ratio price to earnings: {}", ratio);
+        return ratio;
+    }
 
     public BigInteger getPriceChange() {
         var price = financeClient.get10YearsPriceHistory()

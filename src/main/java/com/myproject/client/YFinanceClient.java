@@ -25,7 +25,7 @@ public class YFinanceClient {
                 .queryParam("period2", end.toEpochSecond(UTC))
                 .queryParam("interval", "3mo")
                 .get(ticker)
-                .then().log().all();
+                .then().log().ifValidationFails();
     }
 
     public RequestSpecification getSummary(String module) {
@@ -36,7 +36,7 @@ public class YFinanceClient {
 
     public RequestSpecification given() {
         return RestAssured.given()
-                .log().all()
+                .log().uri().log().method()
                 .baseUri("https://query1.finance.yahoo.com");
     }
 }
