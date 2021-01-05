@@ -14,7 +14,7 @@ public class App {
     public static void main(String[] args) {
         var finances = financeService("LMT");
 //        finances.getPriceChange();
-        finances.getEarningsChange();
+        System.out.println(finances.getEarningsChange());
 
     }
 }

@@ -1,13 +1,15 @@
 package com.myproject.dto;
 
+import com.myproject.calculations.AverageCalculation;
 import groovyjarjarantlr4.v4.misc.OrderedHashMap;
 import io.restassured.path.xml.element.Node;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -18,7 +20,7 @@ public class MacrotrendsQuarterlyEarnings {
     private Map<LocalDate, BigDecimal> earnings;
 
     public static MacrotrendsQuarterlyEarnings from(Node strings) {
-        Map<LocalDate, BigDecimal> earnings = new OrderedHashMap<>();
+        Map<LocalDate, BigDecimal> earnings = new LinkedHashMap<>();
         var counter = new AtomicInteger();
         strings.forEach(it -> {
             int counterCurrent = counter.get();
@@ -34,7 +36,10 @@ public class MacrotrendsQuarterlyEarnings {
         return new MacrotrendsQuarterlyEarnings(earnings);
     }
 
-    public void get10YearsEpsChange() {
-
+    public BigInteger get10YearsEpsChange() {
+        var entries = new ArrayList<>(earnings.values());
+        //we need to reverse as the latest elements appear as the first elements and vice versa
+        Collections.reverse(entries);
+        return new AverageCalculation(entries).getChangeFor40Elements();
     }
 }

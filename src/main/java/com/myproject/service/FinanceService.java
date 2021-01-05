@@ -37,8 +37,9 @@ public class FinanceService {
             throw new RuntimeException("Can't read EPS for " + financeClient);
         }
         var quarterlyEarnings = MacrotrendsQuarterlyEarnings.from(earnings.children().get(1));
-        quarterlyEarnings.get10YearsEpsChange();
-        return BigInteger.ONE;
+        var earningsChange = quarterlyEarnings.get10YearsEpsChange();
+        log.info("Earnings change is {}%:", earningsChange);
+        return earningsChange;
     }
 
 }
