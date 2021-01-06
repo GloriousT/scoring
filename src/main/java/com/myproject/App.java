@@ -15,7 +15,7 @@ public class App {
         var finances = financeService("LMT");
 //        finances.getPriceChange();
 //        System.out.println(finances.getEarningsChange());
-        System.out.println(finances.getPriceGrowthToEarningsGrowthRatio());
-
+//        System.out.println(finances.getPriceGrowthToEarningsGrowthRatio());
+        System.out.println(finances.getTrailingPe());
     }
 }

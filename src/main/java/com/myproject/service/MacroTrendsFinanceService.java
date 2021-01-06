@@ -2,12 +2,14 @@ package com.myproject.service;
 
 import com.myproject.client.MacroTrendsClient;
 import com.myproject.dto.MacrotrendsQuarterlyEarnings;
+import com.myproject.dto.MacrotrendsQuarterlyPriceRatios;
 import io.restassured.path.xml.element.Node;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.LinkedHashMap;
 
 @Slf4j
 @AllArgsConstructor
@@ -16,7 +18,7 @@ public class MacroTrendsFinanceService {
 
     public BigInteger getEarningsChange() {
         var document = macroTrendsClient.getEarningsHistory();
-        Node earnings = (Node) document.getList("**.findAll { it.@class == 'historical_data_table table' }").get(1);
+        var earnings = (Node) document.getList("**.findAll { it.@class == 'historical_data_table table' }").get(1);
         if (!earnings.children().get(0).toString().contains("Quarterly EPS")) {
             throw new RuntimeException("Can't read EPS for " + macroTrendsClient);
         }
@@ -27,7 +29,20 @@ public class MacroTrendsFinanceService {
     }
 
     public BigDecimal getPriceToEarnings10YearsAverage() {
-        var priceToEarningsHistory = macroTrendsClient.getPriceToEarningsHistory();
-        return BigDecimal.ONE;
+        var document = macroTrendsClient.getPriceToEarningsHistory();
+        var peHistoryNode = (Node) document.getList("**.findAll { it.@class == 'table' } ")
+                .stream()
+                .filter(it -> it.toString().contains("PE Ratio Historical Data"))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Can't find PE Ratio history"));
+        var peHistoryItems = peHistoryNode.children().list()
+                .stream()
+                .filter(it -> "tbody".equals(it.name()))
+                .findFirst().orElseThrow(() -> new RuntimeException("Can't find PE Ratio history items"))
+                .children()
+                .list()
+                .subList(1, 41);
+        var priceDynamics = MacrotrendsQuarterlyPriceRatios.from(peHistoryItems);
+        return priceDynamics.get10YearsTrailingPE();
     }
 }

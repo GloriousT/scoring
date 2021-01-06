@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -17,7 +16,7 @@ public class AverageCalculation {
 
     private final List<BigDecimal> elements;
 
-    public BigDecimal getAverageFor40Elements() {
+    public BigDecimal getGrahamWeightedAverageFor40Elements() {
         int size = elements.size();
         if (40 != size) {
             throw new RuntimeException("Size of elements is expected to be 40 but was: " + size);
@@ -38,9 +37,13 @@ public class AverageCalculation {
     }
 
     public BigInteger getChangeFor40Elements() {
-        return getAverageFor40Elements()
+        return getGrahamWeightedAverageFor40Elements()
                 .multiply(BigDecimal.valueOf(100))
                 .toBigInteger();
+    }
+
+    public BigDecimal getAverage() {
+        return getAverage(elements);
     }
 
     private BigDecimal getAverage(List<BigDecimal> elements) {
@@ -48,6 +51,6 @@ public class AverageCalculation {
                 .stream()
                 .reduce(BigDecimal::add)
                 .get()
-                .divide(BigDecimal.valueOf(12), MathContext.DECIMAL64);
+                .divide(BigDecimal.valueOf(elements.size()), MathContext.DECIMAL64);
     }
 }

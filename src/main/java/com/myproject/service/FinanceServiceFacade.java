@@ -33,4 +33,8 @@ public class FinanceServiceFacade {
     public BigInteger getEarningsChange() {
         return macroTrendsFinanceService.getEarningsChange();
     }
+
+    public BigDecimal getTrailingPe() {
+        return macroTrendsFinanceService.getPriceToEarnings10YearsAverage();
+    }
 }

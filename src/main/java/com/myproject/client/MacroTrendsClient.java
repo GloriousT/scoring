@@ -2,7 +2,6 @@ package com.myproject.client;
 
 import io.restassured.RestAssured;
 import io.restassured.path.xml.XmlPath;
-import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import lombok.ToString;
 
@@ -31,11 +30,13 @@ public class MacroTrendsClient {
                 .extract().htmlPath();
     }
 
-    public ValidatableResponse getPriceToEarningsHistory() {
+    public XmlPath getPriceToEarningsHistory() {
         return given()
                 .get(String.format("/%s/%s",
                         companyPath, PE_RATIO_PATH))
-                .then().log().ifValidationFails();
+                .then().log().ifValidationFails()
+                .statusCode(200)
+                .extract().htmlPath();
     }
 
     private String resolveCompanyPath() {
@@ -47,7 +48,7 @@ public class MacroTrendsClient {
                 .extract().header("Location")
                 .split("/");
         var companyFullName = location[location.length - 1];
-        return String.format("/%s/%s", ticker, companyFullName);
+        return String.format("%s/%s", ticker, companyFullName);
     }
 
     private RequestSpecification given() {
