@@ -1,38 +1,58 @@
 package com.myproject.client;
 
+import io.restassured.RestAssured;
+import io.restassured.path.xml.XmlPath;
 import io.restassured.response.ValidatableResponse;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import io.restassured.specification.RequestSpecification;
 import lombok.ToString;
 
 import static io.restassured.RestAssured.given;
 
-@RequiredArgsConstructor
 @ToString
 public class MacroTrendsClient {
-    private final String ticker;
-    private String companyPathName;
+    public static final String BASE_URI = "https://www.macrotrends.net/stocks/charts";
+    public static final String EPS_DILUTED_PATH = "eps-earnings-per-share-diluted";
+    public static final String PE_RATIO_PATH = "pe-ratio";
 
-    public ValidatableResponse getEarningsHistory() {
-        if (null == companyPathName) {
-            fetchCompanyPathName();
-        }
+    private final String ticker;
+    private final String companyPath;
+
+    public MacroTrendsClient(String ticker) {
+        this.ticker = ticker;
+        companyPath = resolveCompanyPath();
+    }
+
+    public XmlPath getEarningsHistory() {
         return given()
-                .log().uri().log().method()
-                .get(String.format("https://www.macrotrends.net/stocks/charts/%s/%s/eps-earnings-per-share-diluted",
-                        ticker,
-                        companyPathName))
+                .get(String.format("/%s/%s",
+                        companyPath, EPS_DILUTED_PATH))
+                .then().log().ifValidationFails()
+                .statusCode(200)
+                .extract().htmlPath();
+    }
+
+    public ValidatableResponse getPriceToEarningsHistory() {
+        return given()
+                .get(String.format("/%s/%s",
+                        companyPath, PE_RATIO_PATH))
                 .then().log().ifValidationFails();
     }
 
-    private void fetchCompanyPathName() {
-        var location = given().log().method().log().uri()
+    private String resolveCompanyPath() {
+        var location = given()
                 .redirects().follow(false)
-                .get(String.format("https://www.macrotrends.net/stocks/charts/%s", ticker))
+                .get(String.format(ticker))
                 .then().log().ifValidationFails()
                 .statusCode(301)
                 .extract().header("Location")
                 .split("/");
-        companyPathName = location[location.length - 1];
+        var companyFullName = location[location.length - 1];
+        return String.format("/%s/%s", ticker, companyFullName);
+    }
+
+    private RequestSpecification given() {
+        return RestAssured.given()
+                .log().method().log().uri()
+                .baseUri(BASE_URI);
     }
 }
