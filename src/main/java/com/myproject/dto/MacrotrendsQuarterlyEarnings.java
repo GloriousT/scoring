@@ -1,13 +1,11 @@
 package com.myproject.dto;
 
 import com.myproject.calculations.AverageCalculation;
-import groovyjarjarantlr4.v4.misc.OrderedHashMap;
 import io.restassured.path.xml.element.Node;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -32,11 +30,11 @@ public class MacrotrendsQuarterlyEarnings {
             earnings.put(LocalDate.parse(earningItem[0]), new BigDecimal(earningItem[1]));
             counter.getAndIncrement();
         });
-        log.info("Retrieved earnings {}", earnings);
+        log.info("Retrieved quarterly earnings {}", earnings);
         return new MacrotrendsQuarterlyEarnings(earnings);
     }
 
-    public BigInteger get10YearsEpsChange() {
+    public BigDecimal get10YearsEpsChange() {
         var entries = new ArrayList<>(earnings.values());
         //we need to reverse as the latest elements appear as the first elements and vice versa
         Collections.reverse(entries);

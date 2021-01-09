@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -51,7 +49,7 @@ public class PriceChartV8Dto {
         }
     }
 
-    public BigInteger get10YearsPriceChange() {
+    public BigDecimal get10YearsPriceChange() {
         var prices = new ArrayList<>(getPrices().values());
         return new AverageCalculation(prices).getChangeFor40Elements();
     }

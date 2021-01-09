@@ -1,6 +1,7 @@
 package com.myproject.service;
 
 import com.myproject.client.MacroTrendsClient;
+import com.myproject.dto.MacrotrendsAnnualEarnings;
 import com.myproject.dto.MacrotrendsQuarterlyEarnings;
 import com.myproject.dto.MacrotrendsQuarterlyPriceRatios;
 import io.restassured.path.xml.element.Node;
@@ -8,21 +9,21 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.LinkedHashMap;
 
 @Slf4j
 @AllArgsConstructor
 public class MacroTrendsFinanceService {
     private final MacroTrendsClient macroTrendsClient;
 
-    public BigInteger getEarningsChange() {
-        var document = macroTrendsClient.getEarningsHistory();
-        var earnings = (Node) document.getList("**.findAll { it.@class == 'historical_data_table table' }").get(1);
-        if (!earnings.children().get(0).toString().contains("Quarterly EPS")) {
-            throw new RuntimeException("Can't read EPS for " + macroTrendsClient);
-        }
-        var quarterlyEarnings = MacrotrendsQuarterlyEarnings.from(earnings.children().get(1));
+    public int getNumberSignificantYoYEpsFalls() {
+        var annualEarningsHistory = macroTrendsClient.getAnnualEarningsHistory();
+        var annualEarnings = MacrotrendsAnnualEarnings.from(annualEarningsHistory);
+        return annualEarnings.getEarningsFallsCountGreaterThan(5);
+    }
+
+    public BigDecimal getEarningsChange() {
+        var quarterlyEarningsHistory = macroTrendsClient.getQuarterlyEarningsHistory();
+        var quarterlyEarnings = MacrotrendsQuarterlyEarnings.from(quarterlyEarningsHistory);
         var earningsChange = quarterlyEarnings.get10YearsEpsChange();
         log.info("Earnings change is {}%:", earningsChange);
         return earningsChange;

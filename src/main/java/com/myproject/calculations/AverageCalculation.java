@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -36,10 +36,10 @@ public class AverageCalculation {
         return avgEnd.subtract(avgStart).divide(avgStart, MathContext.DECIMAL64);
     }
 
-    public BigInteger getChangeFor40Elements() {
+    public BigDecimal getChangeFor40Elements() {
         return getGrahamWeightedAverageFor40Elements()
                 .multiply(BigDecimal.valueOf(100))
-                .toBigInteger();
+                .setScale(2, RoundingMode.CEILING);
     }
 
     public BigDecimal getAverage() {
