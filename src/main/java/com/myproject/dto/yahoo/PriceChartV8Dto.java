@@ -1,4 +1,4 @@
-package com.myproject.dto;
+package com.myproject.dto.yahoo;
 
 import com.myproject.calculations.AverageCalculation;
 import groovyjarjarantlr4.v4.misc.OrderedHashMap;

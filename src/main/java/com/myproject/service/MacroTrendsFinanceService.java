@@ -1,9 +1,9 @@
 package com.myproject.service;
 
 import com.myproject.client.MacroTrendsClient;
-import com.myproject.dto.MacrotrendsAnnualEarnings;
-import com.myproject.dto.MacrotrendsQuarterlyEarnings;
-import com.myproject.dto.MacrotrendsQuarterlyPriceRatios;
+import com.myproject.dto.macrotrends.AnnualEarnings;
+import com.myproject.dto.macrotrends.QuarterlyEarnings;
+import com.myproject.dto.macrotrends.QuarterlyPriceRatios;
 import io.restassured.path.xml.element.Node;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,13 +17,13 @@ public class MacroTrendsFinanceService {
 
     public int getNumberSignificantYoYEpsFalls() {
         var annualEarningsHistory = macroTrendsClient.getAnnualEarningsHistory();
-        var annualEarnings = MacrotrendsAnnualEarnings.from(annualEarningsHistory);
+        var annualEarnings = AnnualEarnings.from(annualEarningsHistory);
         return annualEarnings.getEarningsFallsCountGreaterThan(5);
     }
 
     public BigDecimal getEarningsChange() {
         var quarterlyEarningsHistory = macroTrendsClient.getQuarterlyEarningsHistory();
-        var quarterlyEarnings = MacrotrendsQuarterlyEarnings.from(quarterlyEarningsHistory);
+        var quarterlyEarnings = QuarterlyEarnings.from(quarterlyEarningsHistory);
         var earningsChange = quarterlyEarnings.get10YearsEpsChange();
         log.info("Earnings change is {}%:", earningsChange);
         return earningsChange;
@@ -43,7 +43,7 @@ public class MacroTrendsFinanceService {
                 .children()
                 .list()
                 .subList(1, 41);
-        var priceDynamics = MacrotrendsQuarterlyPriceRatios.from(peHistoryItems);
+        var priceDynamics = QuarterlyPriceRatios.from(peHistoryItems);
         return priceDynamics.get10YearsTrailingPE();
     }
 }

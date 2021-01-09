@@ -40,4 +40,8 @@ public class FinanceServiceFacade {
     public BigDecimal getTrailingPe() {
         return macroTrendsFinanceService.getPriceToEarnings10YearsAverage();
     }
+
+    public BigDecimal getInterestCoverage() {
+        return yFinanceService.getInterestCoverageRatio();
+    }
 }

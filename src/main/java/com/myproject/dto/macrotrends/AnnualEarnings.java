@@ -1,26 +1,24 @@
-package com.myproject.dto;
+package com.myproject.dto.macrotrends;
 
-import com.myproject.calculations.AverageCalculation;
 import io.restassured.path.xml.element.Node;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import java.time.LocalDate;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @AllArgsConstructor(access = PRIVATE)
-public class MacrotrendsAnnualEarnings {
+public class AnnualEarnings {
     private Map<Integer, BigDecimal> earnings;
 
-    public static MacrotrendsAnnualEarnings from(Node annualEarnings) {
+    public static AnnualEarnings from(Node annualEarnings) {
         Map<Integer, BigDecimal> earnings = new LinkedHashMap<>();
         annualEarnings.children().list().stream()
                 .limit(11)
@@ -30,7 +28,7 @@ public class MacrotrendsAnnualEarnings {
                     earnings.put(Integer.valueOf(earningItem[0]), new BigDecimal(earningItem[1]));
                 });
         log.info("Retrieved annual earnings {}", earnings);
-        return new MacrotrendsAnnualEarnings(earnings);
+        return new AnnualEarnings(earnings);
     }
 
     public int getEarningsFallsCountGreaterThan(int percents) {

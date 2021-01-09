@@ -1,6 +1,6 @@
 package com.myproject.client;
 
-import com.myproject.dto.PriceChartV8Dto;
+import com.myproject.dto.yahoo.PriceChartV8Dto;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import lombok.AllArgsConstructor;

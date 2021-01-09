@@ -1,4 +1,4 @@
-package com.myproject.dto;
+package com.myproject.dto.macrotrends;
 
 import com.myproject.calculations.AverageCalculation;
 import io.restassured.path.xml.element.Node;
@@ -7,17 +7,20 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @AllArgsConstructor(access = PRIVATE)
-public class MacrotrendsQuarterlyEarnings {
+public class QuarterlyEarnings {
     private Map<LocalDate, BigDecimal> earnings;
 
-    public static MacrotrendsQuarterlyEarnings from(Node strings) {
+    public static QuarterlyEarnings from(Node strings) {
         Map<LocalDate, BigDecimal> earnings = new LinkedHashMap<>();
         var counter = new AtomicInteger();
         strings.forEach(it -> {
@@ -31,7 +34,7 @@ public class MacrotrendsQuarterlyEarnings {
             counter.getAndIncrement();
         });
         log.info("Retrieved quarterly earnings {}", earnings);
-        return new MacrotrendsQuarterlyEarnings(earnings);
+        return new QuarterlyEarnings(earnings);
     }
 
     public BigDecimal get10YearsEpsChange() {

@@ -1,4 +1,4 @@
-package com.myproject.dto;
+package com.myproject.dto.macrotrends;
 
 import com.myproject.calculations.AverageCalculation;
 import io.restassured.path.xml.element.Node;
@@ -8,16 +8,19 @@ import lombok.extern.slf4j.Slf4j;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @AllArgsConstructor(access = PRIVATE)
-public class MacrotrendsQuarterlyPriceRatios {
+public class QuarterlyPriceRatios {
     private final Map<LocalDate, BigDecimal> peRatios;
 
-    public static MacrotrendsQuarterlyPriceRatios from(List<Node> priceItemRows) {
+    public static QuarterlyPriceRatios from(List<Node> priceItemRows) {
         Map<LocalDate, BigDecimal> peRatios = new LinkedHashMap<>();
         priceItemRows.forEach(it -> {
             var rowElements = it.children();
@@ -26,7 +29,7 @@ public class MacrotrendsQuarterlyPriceRatios {
             peRatios.put(date, peRatio);
         });
         log.info("Retrieved PE Ratios {}", peRatios);
-        return new MacrotrendsQuarterlyPriceRatios(peRatios);
+        return new QuarterlyPriceRatios(peRatios);
     }
 
     public BigDecimal get10YearsTrailingPE() {
