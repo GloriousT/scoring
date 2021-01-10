@@ -1,4 +1,4 @@
-package com.myproject.dto.yahoo;
+package com.myproject.dto.yahoo.price.v8;
 
 import com.myproject.calculations.AverageCalculation;
 import groovyjarjarantlr4.v4.misc.OrderedHashMap;
@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 
 @Data
 @Slf4j
-public class PriceChartV8Dto {
+public class PriceChartDto {
     private Chart chart;
 
     @Data

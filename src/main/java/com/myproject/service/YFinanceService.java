@@ -21,7 +21,7 @@ public class YFinanceService {
     }
 
     public BigDecimal getInterestCoverageRatio() {
-        //income statement: EBIT divided by Interest Expense
-        throw new NotImplementedException("Not implemented yet");
+      var incomeStatement = financeClient.getIncomeStatement();
+      return incomeStatement.getInterestCoverage();
     }
 }
