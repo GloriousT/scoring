@@ -82,7 +82,7 @@ public class YFinanceClient {
          return getFundamentalData("incomeStatementHistoryQuarterly")
                 .get()
                 .then()
-                .log().all()
+                .log().ifValidationFails()
                 .statusCode(200)
                 .extract().jsonPath()
                 .getObject("quoteSummary.result[0].incomeStatementHistoryQuarterly",

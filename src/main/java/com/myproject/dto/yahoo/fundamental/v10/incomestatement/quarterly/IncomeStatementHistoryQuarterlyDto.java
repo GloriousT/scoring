@@ -22,19 +22,32 @@ public class IncomeStatementHistoryQuarterlyDto {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public BigDecimal getLastQuarterEBIT() {
+        return incomeStatementHistory.get(0).getRawEbitValue();
+    }
+
     public BigDecimal getInterestExpenseTTM() {
         return incomeStatementHistory.stream()
                 .map(IncomeStatementHistoryItem::getRawInterestExpense)
-                .peek(it -> log.info(it.toString()))
+                .peek(it -> log.info("Interests expense :{}", it))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public BigDecimal getLastQuarterInterestExpense() {
+        return incomeStatementHistory.get(0).getRawInterestExpense();
+    }
+
     public BigDecimal getInterestCoverage() {
-        var ebitTTM = getEbitTTM();
-        var interestExpense = getInterestExpenseTTM();
-        log.info("EBIT TTM: {}", ebitTTM);
-        log.info("Interest Expense TTM: {}", interestExpense);
-        return ebitTTM.divide(interestExpense, MathContext.DECIMAL64)
+        //should I really use TTM or just last quarter is better?
+//        var ebitTTM = getEbitTTM();
+//        var interestExpense = getInterestExpenseTTM();
+//        log.info("EBIT TTM: {}", ebitTTM);
+//        log.info("Interest Expense TTM: {}", interestExpense);
+        var ebit = getLastQuarterEBIT();
+        var interestExpense = getLastQuarterInterestExpense();
+        log.info("EBIT: {}", ebit);
+        log.info("Interest Expense: {}", interestExpense);
+        return ebit.divide(interestExpense, MathContext.DECIMAL64)
                 .setScale(2, RoundingMode.CEILING);
     }
 }
