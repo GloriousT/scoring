@@ -44,7 +44,7 @@ public class IncomeStatementHistoryQuarterlyDto {
 //        log.info("EBIT TTM: {}", ebitTTM);
 //        log.info("Interest Expense TTM: {}", interestExpense);
         var ebit = getLastQuarterEBIT();
-        var interestExpense = getLastQuarterInterestExpense();
+        var interestExpense = getLastQuarterInterestExpense().multiply(BigDecimal.valueOf(-1));
         log.info("EBIT: {}", ebit);
         log.info("Interest Expense: {}", interestExpense);
         return ebit.divide(interestExpense, MathContext.DECIMAL64)
