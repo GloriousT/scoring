@@ -10,12 +10,12 @@ import static com.myproject.service.ServiceProvider.financeService;
 public class App {
 
     //todo:
-    // price
-    // market cap
+    // price - excel
+    // market cap - excel
     // 10 year trailing PE - done!
     // 10 year price growth - done!
-    // current PE
-    // current PB
+    // current PE - excel
+    // current PB - done!
     // Graham criteria
     // Negative 10 year trailing net income
     // Diluted EPS growth 10 year trailing - done!
@@ -34,6 +34,8 @@ public class App {
     @SneakyThrows
     public static void main(String[] args) {
         var finances = financeService("BGS");
+//        var finances = financeService("FB");
+//        finances.getEarningsChange();
 //        var priceChange = finances.getPriceChange();
 //        var earningsChange = finances.getEarningsChange();
 //        var priceGrowthToEarningsGrowthRatio = finances.getPriceGrowthToEarningsGrowthRatio();
@@ -45,7 +47,11 @@ public class App {
 //        System.out.println(priceGrowthToEarningsGrowthRatio);
 //        System.out.println(trailingPe);
 //        System.out.println(numberSignificantYoYEpsFalls);
-        System.out.println(finances.getInterestCoverage());
+//        System.out.println(finances.getInterestCoverage());
+        System.out.println(finances.getPB());
+        System.out.println(finances.getPB());
+        System.out.println(finances.getPB());
+        System.out.println(finances.getPB());
 
     }
 }

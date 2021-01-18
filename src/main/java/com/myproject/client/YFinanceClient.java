@@ -1,14 +1,15 @@
 package com.myproject.client;
 
 import com.myproject.dto.yahoo.fundamental.v10.incomestatement.quarterly.IncomeStatementHistoryQuarterlyDto;
+import com.myproject.dto.yahoo.fundamental.v10.keystatistics.KeyStatisticsDto;
 import com.myproject.dto.yahoo.price.v8.PriceChartDto;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static io.restassured.mapper.ObjectMapperType.GSON;
 import static java.time.ZoneOffset.UTC;
@@ -46,10 +47,12 @@ import static java.time.ZoneOffset.UTC;
  *    'indexTrend',
  *    'sectorTrend' ]
  */
-@AllArgsConstructor
+@RequiredArgsConstructor
 @ToString
 public class YFinanceClient {
     private final String ticker;
+
+    private JsonPath fundamentalData;
 
     public PriceChartDto get10YearsPriceHistory() {
         LocalDateTime now = LocalDateTime.now();
@@ -66,10 +69,24 @@ public class YFinanceClient {
                 .extract().as(PriceChartDto.class, GSON);
     }
 
-    public RequestSpecification getFundamentalData(String module) {
+    private RequestSpecification getFundamentalData(String module) {
         return given()
                 .basePath("/v10/finance/quoteSummary/" + ticker)
                 .queryParam("modules", module);
+    }
+
+    private JsonPath getFundamentalData() {
+        if (fundamentalData == null) {
+            fundamentalData = given()
+                    .basePath("/v10/finance/quoteSummary/" + ticker)
+                    .queryParam("modules",
+                            String.join(",", "incomeStatementHistoryQuarterly", "defaultKeyStatistics"))
+                    .get()
+                    .then().log().all()
+                    .statusCode(200)
+                    .extract().jsonPath();
+        }
+        return fundamentalData;
     }
 
     public RequestSpecification given() {
@@ -79,13 +96,16 @@ public class YFinanceClient {
     }
 
     public IncomeStatementHistoryQuarterlyDto getIncomeStatement() {
-         return getFundamentalData("incomeStatementHistoryQuarterly")
-                .get()
-                .then()
-                .log().ifValidationFails()
-                .statusCode(200)
-                .extract().jsonPath()
-                .getObject("quoteSummary.result[0].incomeStatementHistoryQuarterly",
-                        IncomeStatementHistoryQuarterlyDto.class);
+        return getFundamentalData()
+                .getObject(module("incomeStatementHistoryQuarterly"), IncomeStatementHistoryQuarterlyDto.class);
+    }
+
+    public KeyStatisticsDto getKeyStatistics() {
+        return getFundamentalData()
+                .getObject(module("defaultKeyStatistics"), KeyStatisticsDto.class);
+    }
+
+    private String module(String moduleName) {
+        return "quoteSummary.result[0]." + moduleName;
     }
 }

@@ -44,4 +44,14 @@ public class FinanceServiceFacade {
     public BigDecimal getInterestCoverage() {
         return yFinanceService.getInterestCoverageRatio();
     }
+
+    public BigDecimal getPB() {
+        return yFinanceService.getPb();
+    }
+
+    public BigDecimal getGrahamCriteria() {
+        var grahamCriteria = getTrailingPe().multiply(getPB());
+        log.info("Graham criteria: {}", grahamCriteria);
+        return grahamCriteria;
+    }
 }

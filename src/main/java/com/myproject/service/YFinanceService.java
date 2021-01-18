@@ -21,6 +21,15 @@ public class YFinanceService {
 
     public BigDecimal getInterestCoverageRatio() {
       var incomeStatement = financeClient.getIncomeStatement();
-      return incomeStatement.getInterestCoverage();
+        var interestCoverage = incomeStatement.getInterestCoverage();
+        log.info("Interest coverage ratio is {}%:", interestCoverage);
+        return interestCoverage;
+    }
+
+    public BigDecimal getPb() {
+        var stats = financeClient.getKeyStatistics();
+        var pb = stats.getPB();
+        log.info("PB is {}%:", pb);
+        return pb;
     }
 }

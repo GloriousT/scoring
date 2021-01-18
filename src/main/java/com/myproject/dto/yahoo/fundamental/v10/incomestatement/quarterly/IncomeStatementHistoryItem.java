@@ -1,9 +1,9 @@
 package com.myproject.dto.yahoo.fundamental.v10.incomestatement.quarterly;
 
+import com.myproject.dto.yahoo.fundamental.v10.FinancialReportItem;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 @AllArgsConstructor
 @NoArgsConstructor
