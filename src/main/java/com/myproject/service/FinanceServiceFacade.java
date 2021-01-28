@@ -1,5 +1,6 @@
 package com.myproject.service;
 
+import com.myproject.model.FullEvaluation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,5 +54,9 @@ public class FinanceServiceFacade {
         var grahamCriteria = getTrailingPe().multiply(getPB());
         log.info("Graham criteria: {}", grahamCriteria);
         return grahamCriteria;
+    }
+
+    public FullEvaluation getFullEvaluation() {
+        return null;
     }
 }

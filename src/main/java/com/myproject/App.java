@@ -3,6 +3,8 @@ package com.myproject;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 import static com.myproject.service.ServiceProvider.financeService;
 
 
@@ -34,6 +36,7 @@ public class App {
     @SneakyThrows
     public static void main(String[] args) {
         var finances = financeService("BGS");
+        finances.getFullEvaluation();
 //        var finances = financeService("FB");
 //        finances.getEarningsChange();
 //        var priceChange = finances.getPriceChange();
@@ -48,10 +51,9 @@ public class App {
 //        System.out.println(trailingPe);
 //        System.out.println(numberSignificantYoYEpsFalls);
 //        System.out.println(finances.getInterestCoverage());
-        System.out.println(finances.getPB());
-        System.out.println(finances.getPB());
-        System.out.println(finances.getPB());
-        System.out.println(finances.getPB());
-
+//        System.out.println(finances.getPB());
+//        System.out.println(finances.getPB());
+//        System.out.println(finances.getPB());
+//        System.out.println(finances.getPB());
     }
 }
