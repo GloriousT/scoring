@@ -13,6 +13,7 @@ import static java.math.MathContext.DECIMAL64;
 @AllArgsConstructor
 public class FinanceServiceFacade {
 
+    private final String ticker;
     private final YFinanceService yFinanceService;
     private final MacroTrendsFinanceService macroTrendsFinanceService;
 
@@ -57,6 +58,43 @@ public class FinanceServiceFacade {
     }
 
     public FullEvaluation getFullEvaluation() {
-        return null;
+        var partialEvaluation = FullEvaluation.builder()
+                .ticker(ticker);
+        try {
+            var trailingPe = getTrailingPe();
+            partialEvaluation.trailing10YearPE(trailingPe);
+
+            var trailingPriceGrowth = getPriceChange();
+            partialEvaluation.trailing10YearPriceGrowthInPercent(trailingPriceGrowth);
+
+            var priceToBook = getPB();
+            partialEvaluation.priceToBook(priceToBook);
+
+            //todo
+            partialEvaluation.negative10YearTrailingNetIncomePresent(null);
+
+            var trailing10YearsEarningsChangeInPercent = getEarningsChange();
+            partialEvaluation.trailing10YearsEarningsChangeInPercent(trailing10YearsEarningsChangeInPercent);
+
+            var significantYearOverYearEpsFallings = getNumberSignificantYoYEpsFalls();
+            partialEvaluation.significantYearOverYearEpsFallings(significantYearOverYearEpsFallings);
+
+            //todo
+            partialEvaluation.positiveEBITDA(null);
+
+            var interestCoverage = getInterestCoverage();
+            partialEvaluation.interestCoverage(interestCoverage);
+
+//            BigDecimal totalLiabilitiesToCurrentAssetsRatio;
+//            BigDecimal longTermDebtToTotalAssetsRatio;
+//            BigDecimal debtToEquityRatio;
+//            BigDecimal quickRatio;
+//            int yearsOfDivsPaid;
+//            Boolean growingDps;
+        } catch (Exception e) {
+            log.error("Exception when calculating full evaluation", e);
+            return partialEvaluation.build();
+        }
+        return partialEvaluation.build();
     }
 }

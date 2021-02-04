@@ -2,24 +2,38 @@ package com.myproject.model;
 
 import lombok.Builder;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 
 @Builder
 @Value
+@Slf4j
 public class FullEvaluation {
+    String ticker;
     BigDecimal trailing10YearPE;
     BigDecimal trailing10YearPriceGrowthInPercent;
     BigDecimal priceToBook;
-    boolean negative10YearTrailingNetIncomePresent;
+    Boolean negative10YearTrailingNetIncomePresent;
     BigDecimal trailing10YearsEarningsChangeInPercent;
     int significantYearOverYearEpsFallings;
-    boolean positiveEBITDA;
+    Boolean positiveEBITDA;
     BigDecimal interestCoverage;
     BigDecimal totalLiabilitiesToCurrentAssetsRatio;
     BigDecimal longTermDebtToTotalAssetsRatio;
     BigDecimal debtToEquityRatio;
     BigDecimal quickRatio;
     int yearsOfDivsPaid;
-    boolean growingDps;
+    Boolean growingDps;
+
+    public void printExcelSet() {
+        log.info("Excel for ticker: {}, Tr.PE:{}, prGrow:{}, PB:{}, Tr.EPS-growth:{}, EPS f yoy:{}, int.cov:{}",
+                ticker,
+                trailing10YearPE,
+                trailing10YearPriceGrowthInPercent,
+                priceToBook,
+                trailing10YearsEarningsChangeInPercent,
+                significantYearOverYearEpsFallings,
+                interestCoverage);
+    }
 }
