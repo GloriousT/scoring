@@ -27,13 +27,15 @@ public class FullEvaluation {
     Boolean growingDps;
 
     public void printExcelSet() {
-        log.info("Excel for ticker: {}, Tr.PE:{}, prGrow:{}, PB:{}, Tr.EPS-growth:{}, EPS f yoy:{}, int.cov:{}",
+        log.info("Excel for ticker: {}, Tr.PE:{}, prGrow:{}, PB:{}, negAnnEpsPresent:{} Tr.EPS-growth:{}, EPS f yoy:{}, posEbitda: {}, int.cov:{}",
                 ticker,
                 trailing10YearPE,
                 trailing10YearPriceGrowthInPercent,
                 priceToBook,
+                negative10YearTrailingNetIncomePresent,
                 trailing10YearsEarningsChangeInPercent,
                 significantYearOverYearEpsFallings,
+                positiveEBITDA,
                 interestCoverage);
     }
 }

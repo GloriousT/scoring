@@ -42,4 +42,10 @@ public class AnnualEarnings {
         }
         return counter;
     }
+
+    public Boolean isNegative10YearTrailingNetIncomePresent() {
+        return earnings.values()
+                .stream()
+                .anyMatch(it -> it.compareTo(BigDecimal.ZERO) < 0);
+    }
 }

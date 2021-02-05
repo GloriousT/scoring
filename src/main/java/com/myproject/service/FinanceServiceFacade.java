@@ -57,6 +57,14 @@ public class FinanceServiceFacade {
         return grahamCriteria;
     }
 
+    private Boolean isNegative10YearTrailingNetIncomePresent() {
+        return macroTrendsFinanceService.isNegative10YearTrailingNetIncomePresent();
+    }
+
+    private Boolean hasPositiveEBITDA() {
+        return yFinanceService.hasPositiveEBITDA();
+    }
+
     public FullEvaluation getFullEvaluation() {
         var partialEvaluation = FullEvaluation.builder()
                 .ticker(ticker);
@@ -70,8 +78,8 @@ public class FinanceServiceFacade {
             var priceToBook = getPB();
             partialEvaluation.priceToBook(priceToBook);
 
-            //todo
-            partialEvaluation.negative10YearTrailingNetIncomePresent(null);
+            var negative10YearTrailingNetIncomePresent = isNegative10YearTrailingNetIncomePresent();
+            partialEvaluation.negative10YearTrailingNetIncomePresent(negative10YearTrailingNetIncomePresent);
 
             var trailing10YearsEarningsChangeInPercent = getEarningsChange();
             partialEvaluation.trailing10YearsEarningsChangeInPercent(trailing10YearsEarningsChangeInPercent);
@@ -79,8 +87,8 @@ public class FinanceServiceFacade {
             var significantYearOverYearEpsFallings = getNumberSignificantYoYEpsFalls();
             partialEvaluation.significantYearOverYearEpsFallings(significantYearOverYearEpsFallings);
 
-            //todo
-            partialEvaluation.positiveEBITDA(null);
+            var hasPositiveEBITDA = hasPositiveEBITDA();
+            partialEvaluation.positiveEBITDA(hasPositiveEBITDA);
 
             var interestCoverage = getInterestCoverage();
             partialEvaluation.interestCoverage(interestCoverage);

@@ -1,5 +1,6 @@
 package com.myproject.client;
 
+import com.myproject.dto.yahoo.fundamental.v10.financial.data.FinancialDataDto;
 import com.myproject.dto.yahoo.fundamental.v10.incomestatement.quarterly.IncomeStatementHistoryQuarterlyDto;
 import com.myproject.dto.yahoo.fundamental.v10.keystatistics.KeyStatisticsDto;
 import com.myproject.dto.yahoo.price.v8.PriceChartDto;
@@ -80,7 +81,10 @@ public class YFinanceClient {
             fundamentalData = given()
                     .basePath("/v10/finance/quoteSummary/" + ticker)
                     .queryParam("modules",
-                            String.join(",", "incomeStatementHistoryQuarterly", "defaultKeyStatistics"))
+                            String.join(",",
+                                    "incomeStatementHistoryQuarterly",
+                                    "defaultKeyStatistics",
+                                    "financialData"))
                     .get()
                     .then().log().all()
                     .statusCode(200)
@@ -103,6 +107,11 @@ public class YFinanceClient {
     public KeyStatisticsDto getKeyStatistics() {
         return getFundamentalData()
                 .getObject(module("defaultKeyStatistics"), KeyStatisticsDto.class);
+    }
+
+    public FinancialDataDto getFinancialData() {
+        return getFundamentalData()
+                .getObject(module("financialData"), FinancialDataDto.class);
     }
 
     private String module(String moduleName) {

@@ -1,5 +1,7 @@
 package com.myproject.client;
 
+import com.myproject.dto.macrotrends.AnnualEarnings;
+import com.myproject.dto.macrotrends.QuarterlyEarnings;
 import io.restassured.RestAssured;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.path.xml.element.Node;
@@ -7,8 +9,6 @@ import io.restassured.specification.RequestSpecification;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-
-import static io.restassured.RestAssured.given;
 
 @Slf4j
 public class MacroTrendsClient {
@@ -26,22 +26,22 @@ public class MacroTrendsClient {
         this.ticker = ticker;
     }
 
-    public Node getQuarterlyEarningsHistory() {
+    public QuarterlyEarnings getQuarterlyEarningsHistory() {
         resolveCompanyPath();
         var quarterlyEarningsNode = getEarningsHistory().get(1).children();
         if (!quarterlyEarningsNode.get(0).toString().contains("Quarterly EPS")) {
             throw new RuntimeException("Can't read quarterly EPS for " + ticker);
         }
-        return quarterlyEarningsNode.get(1);
+        return QuarterlyEarnings.from(quarterlyEarningsNode.get(1));
     }
 
-    public Node getAnnualEarningsHistory() {
+    public AnnualEarnings getAnnualEarningsHistory() {
         resolveCompanyPath();
         var annualEarnings = getEarningsHistory().get(0).children();
         if (!annualEarnings.get(0).toString().contains("Annual EPS")) {
             throw new RuntimeException("Can't read annual EPS for " + ticker);
         }
-        return annualEarnings.get(1);
+        return AnnualEarnings.from(annualEarnings.get(1));
     }
 
     private List<Node> getEarningsHistory() {

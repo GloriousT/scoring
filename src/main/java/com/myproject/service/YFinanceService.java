@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 
+import static java.math.BigDecimal.ZERO;
+
 @Slf4j
 @AllArgsConstructor
 public class YFinanceService {
@@ -31,5 +33,11 @@ public class YFinanceService {
         var pb = stats.getPB();
         log.info("PB is {}%:", pb);
         return pb;
+    }
+
+    public Boolean hasPositiveEBITDA() {
+        var ebitda = financeClient.getFinancialData().getEBITDA();
+        log.info("EBITDA TTM is: {}", ebitda);
+        return ebitda.compareTo(ZERO) > 0;
     }
 }

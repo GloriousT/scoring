@@ -1,10 +1,7 @@
 package com.myproject;
 
-import com.myproject.model.FullEvaluation;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
 
 import static com.myproject.service.ServiceProvider.financeService;
 
@@ -36,11 +33,12 @@ public class App {
 
     @SneakyThrows
     public static void main(String[] args) {
-        var finances = financeService("MA");
-        var fullEvaluation = finances.getFullEvaluation();
-        System.out.println(">>>>>>>>>>>>>>>>>");
-        System.out.println(fullEvaluation.toString());
-        fullEvaluation.printExcelSet();
+        var finances = financeService("QCOM");
+        finances.getInterestCoverage();
+//        var fullEvaluation = finances.getFullEvaluation();
+//        System.out.println(">>>>>>>>>>>>>>>>>");
+//        System.out.println(fullEvaluation.toString());
+//        fullEvaluation.printExcelSet();
 //        var finances = financeService("FB");
 //        finances.getEarningsChange();
 //        var priceChange = finances.getPriceChange();
