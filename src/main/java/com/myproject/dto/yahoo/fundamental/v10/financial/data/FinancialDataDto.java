@@ -10,6 +10,6 @@ public class FinancialDataDto {
     private FinancialReportItem ebitda;
 
     public BigDecimal getEBITDA() {
-        return BigDecimal.valueOf(ebitda.getRawValue());
+        return ebitda.getRawValue();
     }
 }

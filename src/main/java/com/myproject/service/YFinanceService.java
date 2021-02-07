@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 import static java.math.BigDecimal.ZERO;
 
@@ -39,5 +40,14 @@ public class YFinanceService {
         var ebitda = financeClient.getFinancialData().getEBITDA();
         log.info("EBITDA TTM is: {}", ebitda);
         return ebitda.compareTo(ZERO) > 0;
+    }
+
+    public BigDecimal getTotalLiabilitiesToCurrentAssetsRatio() {
+        var balanceSheet = financeClient.getBalanceSheet();
+        var totalLiabilities = balanceSheet.getLatestTotalLiabilities();
+        var currentAssets = balanceSheet.getLatestCurrentAssets();
+        var ratio = totalLiabilities.divide(currentAssets, MathContext.DECIMAL64);
+        log.info("Total Liabilities to Current Assets Ratio is: {}", ratio);
+        return ratio;
     }
 }

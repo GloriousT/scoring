@@ -75,6 +75,10 @@ public class FinanceServiceFacade {
         return yFinanceService.hasPositiveEBITDA();
     }
 
+    public BigDecimal getTotalLiabilitiesToCurrentAssetsRatio() {
+        return yFinanceService.getTotalLiabilitiesToCurrentAssetsRatio();
+    }
+
     public FullEvaluation getFullEvaluation() {
         var partialEvaluation = FullEvaluation.builder()
                 .ticker(ticker);
@@ -103,7 +107,8 @@ public class FinanceServiceFacade {
             var interestCoverage = getInterestCoverage();
             partialEvaluation.interestCoverage(interestCoverage);
 
-//            BigDecimal totalLiabilitiesToCurrentAssetsRatio;
+            var totalLiabilitiesToCurrentAssetsRatio = getTotalLiabilitiesToCurrentAssetsRatio();
+            partialEvaluation.totalLiabilitiesToCurrentAssetsRatio(totalLiabilitiesToCurrentAssetsRatio);
 //            BigDecimal longTermDebtToTotalAssetsRatio;
 //            BigDecimal debtToEquityRatio;
 //            BigDecimal quickRatio;

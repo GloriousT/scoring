@@ -23,7 +23,7 @@ public class App {
     // EPS falls > 5% 10 years trailing - done!
     // Positive EBITDA - done!
     // Interest coverage - done!
-    // Total liabilities / current assets
+    // Total liabilities / current assets - done!
     // Long term debt / total assets
     // Debt / Equity
     // Quick ratio
@@ -34,10 +34,11 @@ public class App {
     @SneakyThrows
     public static void main(String[] args) {
         var finances = financeService("UNH");
-        var fullEvaluation = finances.getFullEvaluation();
-        System.out.println(">>>>>>>>>>>>>>>>>");
+        finances.getTotalLiabilitiesToCurrentAssetsRatio();
+//        var fullEvaluation = finances.getFullEvaluation();
+//        System.out.println(">>>>>>>>>>>>>>>>>");
 //        System.out.println(fullEvaluation.toString());
-        fullEvaluation.printExcelSet();
+//        fullEvaluation.printExcelSet();
 //        var finances = financeService("FB");
 //        finances.getEarningsChange();
 //        var priceChange = finances.getPriceChange();

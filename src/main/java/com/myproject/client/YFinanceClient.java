@@ -1,5 +1,6 @@
 package com.myproject.client;
 
+import com.myproject.dto.yahoo.fundamental.v10.balancesheet.quarterly.BalanceSheetHistoryQuarterlyDto;
 import com.myproject.dto.yahoo.fundamental.v10.financial.data.FinancialDataDto;
 import com.myproject.dto.yahoo.fundamental.v10.incomestatement.quarterly.IncomeStatementHistoryQuarterlyDto;
 import com.myproject.dto.yahoo.fundamental.v10.keystatistics.KeyStatisticsDto;
@@ -84,7 +85,8 @@ public class YFinanceClient {
                             String.join(",",
                                     "incomeStatementHistoryQuarterly",
                                     "defaultKeyStatistics",
-                                    "financialData"))
+                                    "financialData",
+                                    "balanceSheetHistoryQuarterly"))
                     .get()
                     .then().log().all()
                     .statusCode(200)
@@ -103,6 +105,12 @@ public class YFinanceClient {
         return getFundamentalData()
                 .getObject(module("incomeStatementHistoryQuarterly"), IncomeStatementHistoryQuarterlyDto.class);
     }
+
+    public BalanceSheetHistoryQuarterlyDto getBalanceSheet() {
+        return getFundamentalData()
+                .getObject(module("balanceSheetHistoryQuarterly"), BalanceSheetHistoryQuarterlyDto.class);
+    }
+
 
     public KeyStatisticsDto getKeyStatistics() {
         return getFundamentalData()

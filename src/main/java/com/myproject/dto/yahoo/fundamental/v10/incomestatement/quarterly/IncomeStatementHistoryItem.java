@@ -19,10 +19,10 @@ public class IncomeStatementHistoryItem {
     private FinancialReportItem interestExpense;
 
     public BigDecimal getRawEbitValue() {
-        return BigDecimal.valueOf(ebit.getRawValue());
+        return ebit.getRawValue();
     }
 
     public BigDecimal getRawInterestExpense() {
-        return new BigDecimal(BigDecimal.valueOf(interestExpense.getRawValue()).toPlainString());
+        return interestExpense.getRawValue();
     }
 }

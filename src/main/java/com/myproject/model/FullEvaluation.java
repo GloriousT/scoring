@@ -27,7 +27,8 @@ public class FullEvaluation {
     Boolean growingDps;
 
     public void printExcelSet() {
-        log.info("Excel for ticker: {}, Tr.PE:{}, prGrow:{}, PB:{}, negAnnEpsPresent:{} Tr.EPS-growth:{}, EPS f yoy:{}, posEbitda: {}, int.cov:{}",
+        log.info("Excel for ticker: {}, Tr.PE:{}, prGrow:{}, PB:{}, negAnnEpsPresent:{} Tr.EPS-growth:{}, EPS f yoy:{}, posEbitda: {}, int.cov:{}," +
+                        "totLia/CurrAss: {}",
                 ticker,
                 trailing10YearPE,
                 trailing10YearPriceGrowthInPercent,
@@ -36,7 +37,8 @@ public class FullEvaluation {
                 trailing10YearsEarningsChangeInPercent,
                 significantYearOverYearEpsFallings,
                 positiveEBITDA,
-                interestCoverage);
+                interestCoverage,
+                totalLiabilitiesToCurrentAssetsRatio);
     }
 
     public String toGoogleSheetSplit() {
@@ -50,7 +52,8 @@ public class FullEvaluation {
                 .append(trailing10YearsEarningsChangeInPercent).append(",")
                 .append(significantYearOverYearEpsFallings).append(",")
                 .append(positiveEBITDA).append(",")
-                .append(interestCoverage)
+                .append(interestCoverage).append(",")
+                .append(totalLiabilitiesToCurrentAssetsRatio).append(",")
                 .append("\";")
                 .append("\",\")")
                 .toString();
