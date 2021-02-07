@@ -38,4 +38,21 @@ public class FullEvaluation {
                 positiveEBITDA,
                 interestCoverage);
     }
+
+    public String toGoogleSheetSplit() {
+        return new StringBuilder()
+                .append("=SPLIT(")
+                .append(ticker).append(",")
+                .append(trailing10YearPE).append(",")
+                .append(trailing10YearPriceGrowthInPercent).append(",")
+                .append(priceToBook).append(",")
+                .append(negative10YearTrailingNetIncomePresent).append(",")
+                .append(trailing10YearsEarningsChangeInPercent).append(",")
+                .append(significantYearOverYearEpsFallings).append(",")
+                .append(positiveEBITDA).append(",")
+                .append(interestCoverage)
+                .append("\";")
+                .append("\",\")")
+                .toString();
+    }
 }

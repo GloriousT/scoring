@@ -17,11 +17,11 @@ public class App {
     // current PE - excel
     // current PB - done!
     // Graham criteria
-    // Negative 10 year trailing net income
+    // Negative 10 year trailing net income - done!
     // Diluted EPS growth 10 year trailing - done!
     // Diluted EPS grows faster than price 10 years trailing - done!
     // EPS falls > 5% 10 years trailing - done!
-    // Positive EBITDA
+    // Positive EBITDA - done!
     // Interest coverage - done!
     // Total liabilities / current assets
     // Long term debt / total assets
@@ -33,12 +33,11 @@ public class App {
 
     @SneakyThrows
     public static void main(String[] args) {
-        var finances = financeService("QCOM");
-        finances.getInterestCoverage();
-//        var fullEvaluation = finances.getFullEvaluation();
-//        System.out.println(">>>>>>>>>>>>>>>>>");
+        var finances = financeService("UNH");
+        var fullEvaluation = finances.getFullEvaluation();
+        System.out.println(">>>>>>>>>>>>>>>>>");
 //        System.out.println(fullEvaluation.toString());
-//        fullEvaluation.printExcelSet();
+        fullEvaluation.printExcelSet();
 //        var finances = financeService("FB");
 //        finances.getEarningsChange();
 //        var priceChange = finances.getPriceChange();

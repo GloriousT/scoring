@@ -28,7 +28,12 @@ public class FinanceServiceFacade {
     }
 
     public BigDecimal getPriceChange() {
-        return yFinanceService.getPriceChange();
+        try {
+            return yFinanceService.getPriceChange();
+        } catch (Exception e) {
+            log.error("Exception when counting 10y price change", e);
+            return null;
+        }
     }
 
     public BigDecimal getEarningsChange() {
@@ -40,7 +45,12 @@ public class FinanceServiceFacade {
     }
 
     public BigDecimal getTrailingPe() {
-        return macroTrendsFinanceService.getPriceToEarnings10YearsAverage();
+        try {
+            return macroTrendsFinanceService.getPriceToEarnings10YearsAverage();
+        } catch (Exception e) {
+            log.error("Exception when counting trailing PE", e);
+            return null;
+        }
     }
 
     public BigDecimal getInterestCoverage() {

@@ -1,7 +1,10 @@
 package com.myproject.dto.yahoo.fundamental.v10.incomestatement.quarterly;
 
 import com.myproject.dto.yahoo.fundamental.v10.FinancialReportItem;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
@@ -20,6 +23,6 @@ public class IncomeStatementHistoryItem {
     }
 
     public BigDecimal getRawInterestExpense() {
-        return BigDecimal.valueOf(interestExpense.getRawValue());
+        return new BigDecimal(BigDecimal.valueOf(interestExpense.getRawValue()).toPlainString());
     }
 }
