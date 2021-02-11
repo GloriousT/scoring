@@ -1,6 +1,5 @@
 package com.myproject;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.myproject.service.ServiceProvider.financeService;
@@ -31,11 +30,11 @@ public class App {
     // Growing DPS stability
     // 3 years trailing div growth
 
-    @SneakyThrows
     public static void main(String[] args) {
         var finances = financeService("UNH");
-        finances.getTotalLiabilitiesToCurrentAssetsRatio();
-//        var fullEvaluation = finances.getFullEvaluation();
+//        finances.getTotalLiabilitiesToCurrentAssetsRatio();
+//        finances.getLongTermDebtToTotalAssetsRatio();
+        var fullEvaluation = finances.getFullEvaluation();
 //        System.out.println(">>>>>>>>>>>>>>>>>");
 //        System.out.println(fullEvaluation.toString());
 //        fullEvaluation.printExcelSet();

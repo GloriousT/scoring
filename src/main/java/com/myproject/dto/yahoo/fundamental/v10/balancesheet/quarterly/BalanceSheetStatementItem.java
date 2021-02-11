@@ -18,6 +18,8 @@ public class BalanceSheetStatementItem {
     private PeriodEndDate endDate;
     private FinancialReportItem totalLiab;
     private FinancialReportItem totalCurrentAssets;
+    private FinancialReportItem longTermDebt;
+    private FinancialReportItem totalAssets;
 
     public BigDecimal getTotalLiabilities() {
         return totalLiab.getRawValue();
@@ -25,5 +27,13 @@ public class BalanceSheetStatementItem {
 
     public BigDecimal getCurrentAssets() {
         return totalCurrentAssets.getRawValue();
+    }
+
+    public BigDecimal getLongTermDebt() {
+        return longTermDebt.getRawValue();
+    }
+
+    public BigDecimal getTotalAssets() {
+        return totalAssets.getRawValue();
     }
 }

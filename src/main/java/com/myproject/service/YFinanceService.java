@@ -50,4 +50,13 @@ public class YFinanceService {
         log.info("Total Liabilities to Current Assets Ratio is: {}", ratio);
         return ratio;
     }
+
+    public BigDecimal getLongTermDebtToTotalAssetsRatio() {
+        var balanceSheet = financeClient.getBalanceSheet();
+        var longTermDebt = balanceSheet.getLongTermDebt();
+        var totalAssets = balanceSheet.getTotalAssets();
+        var ratio = longTermDebt.divide(totalAssets, MathContext.DECIMAL64);
+        log.info("Long term debt to Total Assets Ratio is: {}", ratio);
+        return ratio;
+    }
 }

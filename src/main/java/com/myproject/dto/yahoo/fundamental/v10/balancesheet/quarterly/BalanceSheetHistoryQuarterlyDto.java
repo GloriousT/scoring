@@ -9,10 +9,22 @@ public class BalanceSheetHistoryQuarterlyDto {
 
 
     public BigDecimal getLatestTotalLiabilities() {
-        return balanceSheetStatements.get(0).getTotalLiabilities();
+        return latestBalance().getTotalLiabilities();
     }
 
     public BigDecimal getLatestCurrentAssets() {
-        return balanceSheetStatements.get(0).getCurrentAssets();
+        return latestBalance().getCurrentAssets();
+    }
+
+    public BigDecimal getLongTermDebt() {
+        return latestBalance().getLongTermDebt();
+    }
+
+    public BigDecimal getTotalAssets() {
+        return latestBalance().getTotalAssets();
+    }
+
+    private BalanceSheetStatementItem latestBalance() {
+        return balanceSheetStatements.get(0);
     }
 }
