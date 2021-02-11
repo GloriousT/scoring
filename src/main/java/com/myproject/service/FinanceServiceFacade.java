@@ -123,7 +123,9 @@ public class FinanceServiceFacade {
 
             var debtToEquityRatio = getDebtToEquityRatio();
             partialEvaluation.debtToEquityRatio(debtToEquityRatio);
-//            BigDecimal quickRatio;
+
+            var quickRatio = getQuickRatio();
+            partialEvaluation.quickRatio(quickRatio);
 //            int yearsOfDivsPaid;
 //            Boolean growingDps;
         } catch (Exception e) {
