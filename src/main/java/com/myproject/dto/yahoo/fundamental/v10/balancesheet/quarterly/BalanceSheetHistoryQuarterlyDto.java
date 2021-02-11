@@ -24,6 +24,10 @@ public class BalanceSheetHistoryQuarterlyDto {
         return latestBalance().getTotalAssets();
     }
 
+    public BigDecimal getEquity() {
+        return latestBalance().getTotalEquity();
+    }
+
     private BalanceSheetStatementItem latestBalance() {
         return balanceSheetStatements.get(0);
     }

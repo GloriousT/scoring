@@ -59,4 +59,13 @@ public class YFinanceService {
         log.info("Long term debt to Total Assets Ratio is: {}", ratio);
         return ratio;
     }
+
+    public BigDecimal getDebtToEquityRatio() {
+        var balanceSheet = financeClient.getBalanceSheet();
+        var debt = balanceSheet.getLongTermDebt();
+        var equity = balanceSheet.getEquity();
+        var ratio = debt.divide(equity, MathContext.DECIMAL64);
+        log.info("Debt to Equity ratio is: {}", ratio);
+        return ratio;
+    }
 }

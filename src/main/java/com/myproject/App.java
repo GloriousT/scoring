@@ -23,8 +23,8 @@ public class App {
     // Positive EBITDA - done!
     // Interest coverage - done!
     // Total liabilities / current assets - done!
-    // Long term debt / total assets
-    // Debt / Equity
+    // Long term debt / total assets - done!
+    // Debt / Equity - done!
     // Quick ratio
     // Div paid years
     // Growing DPS stability
@@ -33,8 +33,8 @@ public class App {
     public static void main(String[] args) {
         var finances = financeService("UNH");
 //        finances.getTotalLiabilitiesToCurrentAssetsRatio();
-//        finances.getLongTermDebtToTotalAssetsRatio();
-        var fullEvaluation = finances.getFullEvaluation();
+        finances.getDebtToEquityRatio();
+//        var fullEvaluation = finances.getFullEvaluation();
 //        System.out.println(">>>>>>>>>>>>>>>>>");
 //        System.out.println(fullEvaluation.toString());
 //        fullEvaluation.printExcelSet();

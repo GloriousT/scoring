@@ -83,6 +83,10 @@ public class FinanceServiceFacade {
         return yFinanceService.getLongTermDebtToTotalAssetsRatio();
     }
 
+    public BigDecimal getDebtToEquityRatio() {
+        return yFinanceService.getDebtToEquityRatio();
+    }
+
     public FullEvaluation getFullEvaluation() {
         var partialEvaluation = FullEvaluation.builder()
                 .ticker(ticker);
@@ -116,8 +120,9 @@ public class FinanceServiceFacade {
 
             var longTermDebtToTotalAssetsRatio = getLongTermDebtToTotalAssetsRatio();
             partialEvaluation.longTermDebtToTotalAssetsRatio(longTermDebtToTotalAssetsRatio);
-//            BigDecimal longTermDebtToTotalAssetsRatio;
-//            BigDecimal debtToEquityRatio;
+
+            var debtToEquityRatio = getDebtToEquityRatio();
+            partialEvaluation.debtToEquityRatio(debtToEquityRatio);
 //            BigDecimal quickRatio;
 //            int yearsOfDivsPaid;
 //            Boolean growingDps;

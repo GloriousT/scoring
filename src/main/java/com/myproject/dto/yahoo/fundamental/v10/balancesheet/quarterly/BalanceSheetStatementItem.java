@@ -20,6 +20,7 @@ public class BalanceSheetStatementItem {
     private FinancialReportItem totalCurrentAssets;
     private FinancialReportItem longTermDebt;
     private FinancialReportItem totalAssets;
+    private FinancialReportItem totalStockholderEquity;
 
     public BigDecimal getTotalLiabilities() {
         return totalLiab.getRawValue();
@@ -35,5 +36,9 @@ public class BalanceSheetStatementItem {
 
     public BigDecimal getTotalAssets() {
         return totalAssets.getRawValue();
+    }
+
+    public BigDecimal getTotalEquity() {
+        return totalStockholderEquity.getRawValue();
     }
 }
