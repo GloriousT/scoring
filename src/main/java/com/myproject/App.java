@@ -25,7 +25,7 @@ public class App {
     // Total liabilities / current assets - done!
     // Long term debt / total assets - done!
     // Debt / Equity - done!
-    // Quick ratio
+    // Quick ratio - done!
     // Div paid years
     // Growing DPS stability
     // 3 years trailing div growth
@@ -33,7 +33,7 @@ public class App {
     public static void main(String[] args) {
         var finances = financeService("UNH");
 //        finances.getTotalLiabilitiesToCurrentAssetsRatio();
-        finances.getDebtToEquityRatio();
+        finances.getQuickRatio();
 //        var fullEvaluation = finances.getFullEvaluation();
 //        System.out.println(">>>>>>>>>>>>>>>>>");
 //        System.out.println(fullEvaluation.toString());

@@ -87,6 +87,10 @@ public class FinanceServiceFacade {
         return yFinanceService.getDebtToEquityRatio();
     }
 
+    public BigDecimal getQuickRatio() {
+        return yFinanceService.getQuickRatio();
+    }
+
     public FullEvaluation getFullEvaluation() {
         var partialEvaluation = FullEvaluation.builder()
                 .ticker(ticker);

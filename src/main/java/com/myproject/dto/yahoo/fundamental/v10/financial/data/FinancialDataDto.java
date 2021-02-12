@@ -8,8 +8,13 @@ import java.math.BigDecimal;
 @Data
 public class FinancialDataDto {
     private FinancialReportItem ebitda;
+    private FinancialReportItem quickRatio;
 
     public BigDecimal getEBITDA() {
         return ebitda.getRawValue();
+    }
+
+    public BigDecimal getQuickRatio() {
+        return quickRatio.getRawValue();
     }
 }

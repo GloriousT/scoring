@@ -68,4 +68,11 @@ public class YFinanceService {
         log.info("Debt to Equity ratio is: {}", ratio);
         return ratio;
     }
+
+    public BigDecimal getQuickRatio() {
+        var financilalData = financeClient.getFinancialData();
+        var quickRatio = financilalData.getQuickRatio();
+        log.info("Quick ratio is: {}", quickRatio);
+        return quickRatio;
+    }
 }
