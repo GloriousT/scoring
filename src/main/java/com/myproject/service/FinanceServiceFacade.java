@@ -91,6 +91,10 @@ public class FinanceServiceFacade {
         return yFinanceService.getQuickRatio();
     }
 
+    public int getYearsOfDivsPaid() {
+        return yFinanceService.getYearsOfDivsPaid();
+    }
+
     public FullEvaluation getFullEvaluation() {
         var partialEvaluation = FullEvaluation.builder()
                 .ticker(ticker);
@@ -130,7 +134,9 @@ public class FinanceServiceFacade {
 
             var quickRatio = getQuickRatio();
             partialEvaluation.quickRatio(quickRatio);
-//            int yearsOfDivsPaid;
+
+            var yearsOfDivsPaid = getYearsOfDivsPaid();
+            partialEvaluation.yearsOfDivsPaid(yearsOfDivsPaid);
 //            Boolean growingDps;
         } catch (Exception e) {
             log.error("Exception when calculating full evaluation", e);

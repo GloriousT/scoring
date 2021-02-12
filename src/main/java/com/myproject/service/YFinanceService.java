@@ -75,4 +75,9 @@ public class YFinanceService {
         log.info("Quick ratio is: {}", quickRatio);
         return quickRatio;
     }
+
+    public int getYearsOfDivsPaid() {
+        var divHistory = financeClient.getDividendHistory();
+        return -1;
+    }
 }

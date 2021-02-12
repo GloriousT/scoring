@@ -33,7 +33,7 @@ public class App {
     public static void main(String[] args) {
         var finances = financeService("UNH");
 //        finances.getTotalLiabilitiesToCurrentAssetsRatio();
-        finances.getQuickRatio();
+        finances.getYearsOfDivsPaid();
 //        var fullEvaluation = finances.getFullEvaluation();
 //        System.out.println(">>>>>>>>>>>>>>>>>");
 //        System.out.println(fullEvaluation.toString());

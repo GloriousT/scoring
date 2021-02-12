@@ -71,10 +71,25 @@ public class YFinanceClient {
                 .extract().as(PriceChartDto.class, GSON);
     }
 
-    private RequestSpecification getFundamentalData(String module) {
+    public Object getDividendHistory() {
+        var now = LocalDateTime.now()
+                .withDayOfMonth(1)
+                .withHour(0)
+                .withMinute(0)
+                .withSecond(0)
+                .toEpochSecond(UTC);
+        var end = 466819200;
         return given()
-                .basePath("/v10/finance/quoteSummary/" + ticker)
-                .queryParam("modules", module);
+                .basePath("/v8/finance/chart")
+                .queryParam("symbol", ticker)
+                .queryParam("period1", end)
+                .queryParam("period2", now)
+                .queryParam("interval", "1mo")
+                .queryParam("events", "div")
+                .get(ticker)
+                .then().log().all()
+                .statusCode(200)
+                .extract().as(Object.class, GSON);
     }
 
     private JsonPath getFundamentalData() {
