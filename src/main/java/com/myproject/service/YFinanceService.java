@@ -70,8 +70,8 @@ public class YFinanceService {
     }
 
     public BigDecimal getQuickRatio() {
-        var financilalData = financeClient.getFinancialData();
-        var quickRatio = financilalData.getQuickRatio();
+        var financialData = financeClient.getFinancialData();
+        var quickRatio = financialData.getQuickRatio();
         log.info("Quick ratio is: {}", quickRatio);
         return quickRatio;
     }
