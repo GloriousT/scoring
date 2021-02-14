@@ -31,7 +31,7 @@ public class App {
     // 3 years trailing div growth
 
     public static void main(String[] args) {
-        var finances = financeService("UNH");
+        var finances = financeService("CME");
 //        finances.getTotalLiabilitiesToCurrentAssetsRatio();
         finances.getYearsOfDivsPaid();
 //        var fullEvaluation = finances.getFullEvaluation();

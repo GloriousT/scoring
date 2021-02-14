@@ -4,6 +4,7 @@ import com.myproject.dto.yahoo.fundamental.v10.balancesheet.quarterly.BalanceShe
 import com.myproject.dto.yahoo.fundamental.v10.financial.data.FinancialDataDto;
 import com.myproject.dto.yahoo.fundamental.v10.incomestatement.quarterly.IncomeStatementHistoryQuarterlyDto;
 import com.myproject.dto.yahoo.fundamental.v10.keystatistics.KeyStatisticsDto;
+import com.myproject.dto.yahoo.price.v8.Events;
 import com.myproject.dto.yahoo.price.v8.PriceChartDto;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -71,7 +72,7 @@ public class YFinanceClient {
                 .extract().as(PriceChartDto.class, GSON);
     }
 
-    public Object getDividendHistory() {
+    public Events getDividendHistory() {
         var now = LocalDateTime.now()
                 .withDayOfMonth(1)
                 .withHour(0)
@@ -84,12 +85,13 @@ public class YFinanceClient {
                 .queryParam("symbol", ticker)
                 .queryParam("period1", end)
                 .queryParam("period2", now)
-                .queryParam("interval", "1mo")
+                .queryParam("interval", "3mo")
                 .queryParam("events", "div")
                 .get(ticker)
                 .then().log().all()
                 .statusCode(200)
-                .extract().as(Object.class, GSON);
+                .extract().as(PriceChartDto.class, GSON)
+                .getDividends();
     }
 
     private JsonPath getFundamentalData() {
