@@ -26,14 +26,14 @@ public class App {
     // Long term debt / total assets - done!
     // Debt / Equity - done!
     // Quick ratio - done!
-    // Div paid years
+    // Div paid years - done!
     // Growing DPS stability
     // 3 years trailing div growth
 
     public static void main(String[] args) {
-        var finances = financeService("CME");
+        var finances = financeService("FISV");
 //        finances.getTotalLiabilitiesToCurrentAssetsRatio();
-        finances.getYearsOfDivsPaid();
+        finances.getFullEvaluation().printExcelSet();
 //        var fullEvaluation = finances.getFullEvaluation();
 //        System.out.println(">>>>>>>>>>>>>>>>>");
 //        System.out.println(fullEvaluation.toString());

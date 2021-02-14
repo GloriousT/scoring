@@ -23,12 +23,12 @@ public class FullEvaluation {
     BigDecimal longTermDebtToTotalAssetsRatio;
     BigDecimal debtToEquityRatio;
     BigDecimal quickRatio;
-    int yearsOfDivsPaid;
+    Integer yearsOfDivsPaid;
     Boolean growingDps;
 
     public void printExcelSet() {
         log.info("Excel for ticker: {}, Tr.PE:{}, prGrow:{}, PB:{}, negAnnEpsPresent:{} Tr.EPS-growth:{}, EPS f yoy:{}, posEbitda: {}, int.cov:{}," +
-                        "totLia/CurrAss: {}, lngTrmDebt/TotAss: {}",
+                        "totLia/CurrAss: {}, lngTrmDebt/TotAss: {}, dbt/eq: {}, quickR: {}, yrsDivs: {}",
                 ticker,
                 trailing10YearPE,
                 trailing10YearPriceGrowthInPercent,
@@ -39,7 +39,10 @@ public class FullEvaluation {
                 positiveEBITDA,
                 interestCoverage,
                 totalLiabilitiesToCurrentAssetsRatio,
-                longTermDebtToTotalAssetsRatio);
+                longTermDebtToTotalAssetsRatio,
+                debtToEquityRatio,
+                quickRatio,
+                yearsOfDivsPaid);
     }
 
     public String toGoogleSheetSplit() {
@@ -56,6 +59,9 @@ public class FullEvaluation {
                 .append(interestCoverage).append(",")
                 .append(totalLiabilitiesToCurrentAssetsRatio).append(",")
                 .append(longTermDebtToTotalAssetsRatio).append(",")
+                .append(debtToEquityRatio).append(",")
+                .append(quickRatio).append(",")
+                .append(yearsOfDivsPaid).append(",")
                 .append("\";")
                 .append("\",\")")
                 .toString();

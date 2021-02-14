@@ -76,7 +76,7 @@ public class YFinanceService {
         return quickRatio;
     }
 
-    public int getYearsOfDivsPaid() {
+    public Integer getYearsOfDivsPaid() {
         var divHistory = financeClient.getDividendHistory();
         var yearsDivs = divHistory.getOrderedDividends().size() / 4;
         log.info("Years of dividend paid is not less than: {}", yearsDivs);

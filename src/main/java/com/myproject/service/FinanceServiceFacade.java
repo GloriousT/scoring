@@ -91,8 +91,13 @@ public class FinanceServiceFacade {
         return yFinanceService.getQuickRatio();
     }
 
-    public int getYearsOfDivsPaid() {
-        return yFinanceService.getYearsOfDivsPaid();
+    public Integer getYearsOfDivsPaid() {
+        try {
+            return yFinanceService.getYearsOfDivsPaid();
+        } catch (Exception e) {
+            log.error("Exception when counting divs paid", e);
+            return null;
+        }
     }
 
     public FullEvaluation getFullEvaluation() {
@@ -137,6 +142,7 @@ public class FinanceServiceFacade {
 
             var yearsOfDivsPaid = getYearsOfDivsPaid();
             partialEvaluation.yearsOfDivsPaid(yearsOfDivsPaid);
+
 //            Boolean growingDps;
         } catch (Exception e) {
             log.error("Exception when calculating full evaluation", e);
