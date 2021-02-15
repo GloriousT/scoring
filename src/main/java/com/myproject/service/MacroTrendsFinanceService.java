@@ -21,7 +21,7 @@ public class MacroTrendsFinanceService {
     public BigDecimal getEarningsChange() {
         var quarterlyEarnings = macroTrendsClient.getQuarterlyEarningsHistory();
         var earningsChange = quarterlyEarnings.get10YearsEpsChange();
-        log.info("Earnings change is {}%:", earningsChange);
+        log.info("Earnings change is {}%:", earningsChange.multiply(BigDecimal.valueOf(100)));
         return earningsChange;
     }
 

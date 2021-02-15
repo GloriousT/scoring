@@ -1,5 +1,6 @@
 package com.myproject;
 
+import com.myproject.model.FullEvaluation;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.myproject.service.ServiceProvider.financeService;
@@ -28,33 +29,12 @@ public class App {
     // Quick ratio - done!
     // Div paid years - done!
     // Growing DPS stability
-    // 3 years trailing div growth
+    // 3 years trailing div growth - done!
 
     public static void main(String[] args) {
-        var finances = financeService("FISV");
-//        finances.getTotalLiabilitiesToCurrentAssetsRatio();
-        finances.getFullEvaluation().printExcelSet();
-//        var fullEvaluation = finances.getFullEvaluation();
-//        System.out.println(">>>>>>>>>>>>>>>>>");
-//        System.out.println(fullEvaluation.toString());
-//        fullEvaluation.printExcelSet();
-//        var finances = financeService("FB");
-//        finances.getEarningsChange();
-//        var priceChange = finances.getPriceChange();
-//        var earningsChange = finances.getEarningsChange();
-//        var priceGrowthToEarningsGrowthRatio = finances.getPriceGrowthToEarningsGrowthRatio();
-//        var trailingPe = finances.getTrailingPe();
-//        var numberSignificantYoYEpsFalls= finances.getNumberSignificantYoYEpsFalls();
-//        System.out.println("results==================================================");
-//        System.out.println(priceChange);
-//        System.out.println(earningsChange);
-//        System.out.println(priceGrowthToEarningsGrowthRatio);
-//        System.out.println(trailingPe);
-//        System.out.println(numberSignificantYoYEpsFalls);
-//        System.out.println(finances.getInterestCoverage());
-//        System.out.println(finances.getPB());
-//        System.out.println(finances.getPB());
-//        System.out.println(finances.getPB());
-//        System.out.println(finances.getPB());
+        var finances = financeService("UNH");
+        FullEvaluation fullEvaluation = finances.getFullEvaluation();
+        fullEvaluation.printExcelSet();
+
     }
 }

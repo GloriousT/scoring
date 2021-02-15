@@ -38,7 +38,6 @@ public class AverageCalculation {
 
     public BigDecimal getChangeFor40Elements() {
         return getGrahamWeightedAverageFor40Elements()
-                .multiply(BigDecimal.valueOf(100))
                 .setScale(2, RoundingMode.CEILING);
     }
 

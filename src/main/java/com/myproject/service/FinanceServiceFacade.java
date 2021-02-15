@@ -58,7 +58,12 @@ public class FinanceServiceFacade {
     }
 
     public BigDecimal getPB() {
-        return yFinanceService.getPb();
+        try {
+            return yFinanceService.getPb();
+        } catch (Exception e) {
+            log.error("Exception when counting PB", e);
+            return null;
+        }
     }
 
     public BigDecimal getGrahamCriteria() {
@@ -68,32 +73,71 @@ public class FinanceServiceFacade {
     }
 
     private Boolean isNegative10YearTrailingNetIncomePresent() {
-        return macroTrendsFinanceService.isNegative10YearTrailingNetIncomePresent();
+        try {
+            return macroTrendsFinanceService.isNegative10YearTrailingNetIncomePresent();
+        } catch (Exception e) {
+            log.error("Exception when counting isNegative10YearTrailingNetIncomePresent", e);
+            return null;
+        }
     }
 
     private Boolean hasPositiveEBITDA() {
-        return yFinanceService.hasPositiveEBITDA();
+        try {
+            return yFinanceService.hasPositiveEBITDA();
+        } catch (Exception e) {
+            log.error("Exception when counting hasPositiveEBITDA", e);
+            return null;
+        }
     }
 
     public BigDecimal getTotalLiabilitiesToCurrentAssetsRatio() {
-        return yFinanceService.getTotalLiabilitiesToCurrentAssetsRatio();
+        try {
+            return yFinanceService.getTotalLiabilitiesToCurrentAssetsRatio();
+        } catch (Exception e) {
+            log.error("Exception when counting getTotalLiabilitiesToCurrentAssetsRatio", e);
+            return null;
+        }
     }
 
     public BigDecimal getLongTermDebtToTotalAssetsRatio() {
-        return yFinanceService.getLongTermDebtToTotalAssetsRatio();
+        try {
+            return yFinanceService.getLongTermDebtToTotalAssetsRatio();
+        } catch (Exception e) {
+            log.error("Exception when counting getLongTermDebtToTotalAssetsRatio", e);
+            return null;
+        }
     }
 
     public BigDecimal getDebtToEquityRatio() {
-        return yFinanceService.getDebtToEquityRatio();
+        try {
+            return yFinanceService.getDebtToEquityRatio();
+        } catch (Exception e) {
+            log.error("Exception when counting getDebtToEquityRatio", e);
+            return null;
+        }
     }
 
     public BigDecimal getQuickRatio() {
-        return yFinanceService.getQuickRatio();
+        try {
+            return yFinanceService.getQuickRatio();
+        } catch (Exception e) {
+            log.error("Exception when counting getQuickRatio", e);
+            return null;
+        }
     }
 
     public Integer getYearsOfDivsPaid() {
         try {
             return yFinanceService.getYearsOfDivsPaid();
+        } catch (Exception e) {
+            log.error("Exception when counting divs paid", e);
+            return null;
+        }
+    }
+
+    public BigDecimal getDpsGrowth() {
+        try {
+            return yFinanceService.getDpsGrowth();
         } catch (Exception e) {
             log.error("Exception when counting divs paid", e);
             return null;
@@ -143,7 +187,8 @@ public class FinanceServiceFacade {
             var yearsOfDivsPaid = getYearsOfDivsPaid();
             partialEvaluation.yearsOfDivsPaid(yearsOfDivsPaid);
 
-//            Boolean growingDps;
+            var growingDps = getDpsGrowth();
+            partialEvaluation.growingDps(growingDps);
         } catch (Exception e) {
             log.error("Exception when calculating full evaluation", e);
             return partialEvaluation.build();
