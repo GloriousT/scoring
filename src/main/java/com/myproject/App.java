@@ -1,7 +1,9 @@
 package com.myproject;
 
-import com.myproject.model.FullEvaluation;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.myproject.service.ServiceProvider.financeService;
 
@@ -32,9 +34,9 @@ public class App {
     // 3 years trailing div growth - done!
 
     public static void main(String[] args) {
-        var finances = financeService("UNH");
-        FullEvaluation fullEvaluation = finances.getFullEvaluation();
-        fullEvaluation.printExcelSet();
-
+        Stream.of("CMCSA", "JKHY", "PFE", "RTX", "NOC", "LMT", "ADP")
+                .map(it -> financeService(it).getFullEvaluation().toGoogleSheetSplit())
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
     }
 }

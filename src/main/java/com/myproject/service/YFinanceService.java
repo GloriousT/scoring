@@ -86,7 +86,7 @@ public class YFinanceService {
     public Integer getYearsOfDivsPaid() {
         var divHistory = financeClient.getDividendHistory();
         //assuming divs paid quarterly
-        var yearsDivs = divHistory.getOrderedDividends().size() / 4;
+        var yearsDivs = (divHistory.getOrderedDividends().size() / 4) - 1;
         log.info("Years of dividend paid is not less than: {}", yearsDivs);
         return yearsDivs;
     }

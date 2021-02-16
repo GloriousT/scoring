@@ -31,7 +31,7 @@ public class FinanceServiceFacade {
         try {
             return yFinanceService.getPriceChange();
         } catch (Exception e) {
-            log.error("Exception when counting 10y price change", e);
+            log.error("{} Exception when counting 10y price change", ticker, e);
             return null;
         }
     }
@@ -48,7 +48,7 @@ public class FinanceServiceFacade {
         try {
             return macroTrendsFinanceService.getPriceToEarnings10YearsAverage();
         } catch (Exception e) {
-            log.error("Exception when counting trailing PE", e);
+            log.error("{} Exception when counting trailing PE", ticker, e);
             return null;
         }
     }
@@ -61,7 +61,7 @@ public class FinanceServiceFacade {
         try {
             return yFinanceService.getPb();
         } catch (Exception e) {
-            log.error("Exception when counting PB", e);
+            log.error("{} Exception when counting PB", ticker, e);
             return null;
         }
     }
@@ -76,7 +76,7 @@ public class FinanceServiceFacade {
         try {
             return macroTrendsFinanceService.isNegative10YearTrailingNetIncomePresent();
         } catch (Exception e) {
-            log.error("Exception when counting isNegative10YearTrailingNetIncomePresent", e);
+            log.error("{} Exception when counting isNegative10YearTrailingNetIncomePresent", ticker, e);
             return null;
         }
     }
@@ -85,7 +85,7 @@ public class FinanceServiceFacade {
         try {
             return yFinanceService.hasPositiveEBITDA();
         } catch (Exception e) {
-            log.error("Exception when counting hasPositiveEBITDA", e);
+            log.error("{} Exception when counting hasPositiveEBITDA", ticker, e);
             return null;
         }
     }
@@ -94,7 +94,7 @@ public class FinanceServiceFacade {
         try {
             return yFinanceService.getTotalLiabilitiesToCurrentAssetsRatio();
         } catch (Exception e) {
-            log.error("Exception when counting getTotalLiabilitiesToCurrentAssetsRatio", e);
+            log.error("{} Exception when counting getTotalLiabilitiesToCurrentAssetsRatio", ticker, e);
             return null;
         }
     }
@@ -103,7 +103,7 @@ public class FinanceServiceFacade {
         try {
             return yFinanceService.getLongTermDebtToTotalAssetsRatio();
         } catch (Exception e) {
-            log.error("Exception when counting getLongTermDebtToTotalAssetsRatio", e);
+            log.error("{} Exception when counting getLongTermDebtToTotalAssetsRatio", ticker, e);
             return null;
         }
     }
@@ -112,7 +112,7 @@ public class FinanceServiceFacade {
         try {
             return yFinanceService.getDebtToEquityRatio();
         } catch (Exception e) {
-            log.error("Exception when counting getDebtToEquityRatio", e);
+            log.error("{} Exception when counting getDebtToEquityRatio", ticker, e);
             return null;
         }
     }
@@ -121,7 +121,7 @@ public class FinanceServiceFacade {
         try {
             return yFinanceService.getQuickRatio();
         } catch (Exception e) {
-            log.error("Exception when counting getQuickRatio", e);
+            log.error("{} Exception when counting getQuickRatio", ticker, e);
             return null;
         }
     }
@@ -130,7 +130,7 @@ public class FinanceServiceFacade {
         try {
             return yFinanceService.getYearsOfDivsPaid();
         } catch (Exception e) {
-            log.error("Exception when counting divs paid", e);
+            log.error("{} Exception when counting divs paid", ticker, e);
             return null;
         }
     }
@@ -139,7 +139,7 @@ public class FinanceServiceFacade {
         try {
             return yFinanceService.getDpsGrowth();
         } catch (Exception e) {
-            log.error("Exception when counting divs paid", e);
+            log.error("{} Exception when counting divs paid", ticker, e);
             return null;
         }
     }
@@ -190,7 +190,7 @@ public class FinanceServiceFacade {
             var growingDps = getDpsGrowth();
             partialEvaluation.growingDps(growingDps);
         } catch (Exception e) {
-            log.error("Exception when calculating full evaluation", e);
+            log.error("{} Exception when calculating full evaluation", ticker, e);
             return partialEvaluation.build();
         }
         return partialEvaluation.build();
