@@ -50,6 +50,6 @@ public class AverageCalculation {
                 .stream()
                 .reduce(BigDecimal::add)
                 .get()
-                .divide(BigDecimal.valueOf(elements.size()), MathContext.DECIMAL64);
+                .divide(BigDecimal.valueOf(elements.size()).abs(), MathContext.DECIMAL64);
     }
 }

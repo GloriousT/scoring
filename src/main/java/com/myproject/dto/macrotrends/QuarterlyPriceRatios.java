@@ -29,7 +29,21 @@ public class QuarterlyPriceRatios {
             peRatios.put(date, peRatio);
         });
         log.info("Retrieved PE Ratios {}", peRatios);
-        return new QuarterlyPriceRatios(peRatios);
+        var cleanedPeRatios = removeOutstandingPe(peRatios);
+        return new QuarterlyPriceRatios(cleanedPeRatios);
+    }
+
+    private static Map<LocalDate, BigDecimal> removeOutstandingPe(Map<LocalDate, BigDecimal> peRatios) {
+        var cleanedPeRatios = new LinkedHashMap<LocalDate, BigDecimal>();
+        peRatios.forEach((key, value) -> {
+            //for too high PE ratios we don't count them and consider artifacts unless there are too many of them
+            if (value.compareTo(new BigDecimal(200)) > 0) {
+                cleanedPeRatios.put(key, BigDecimal.ZERO);
+            } else {
+                cleanedPeRatios.put(key, value);
+            }
+        });
+        return cleanedPeRatios;
     }
 
     public BigDecimal get10YearsTrailingPE() {
