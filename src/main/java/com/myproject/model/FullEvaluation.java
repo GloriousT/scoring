@@ -24,7 +24,7 @@ public class FullEvaluation {
     BigDecimal debtToEquityRatio;
     BigDecimal quickRatio;
     Integer yearsOfDivsPaid;
-    BigDecimal growingDps;
+    CalculatedValue<BigDecimal> growingDps;
 
     public void printExcelSet() {
         log.info("Excel for ticker: {}, Tr.PE:{}, prGrow:{}, PB:{}, negAnnEpsPresent:{} Tr.EPS-growth:{}, EPS f yoy:{}, posEbitda: {}, int.cov:{}," +
@@ -68,7 +68,7 @@ public class FullEvaluation {
                 .append(quickRatio).append(",")
                 .append(yearsOfDivsPaid).append(",")
                 .append(" ,")
-                .append(growingDps)
+                .append(growingDps.getValue())
                 .append("\";")
                 .append("\",\")")
                 .toString();

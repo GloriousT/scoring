@@ -2,12 +2,14 @@ package com.myproject.service;
 
 import com.myproject.client.YFinanceClient;
 import com.myproject.dto.yahoo.price.v8.DividendEvent;
+import com.myproject.model.CalculatedValue;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.Collections;
 
 import static java.math.BigDecimal.ZERO;
@@ -91,11 +93,16 @@ public class YFinanceService {
         return yearsDivs;
     }
 
-    public BigDecimal getDpsGrowth() {
+    public CalculatedValue<BigDecimal> getDpsGrowth() {
+        var lastDivDate = financeClient.getKeyStatistics().getLastDividend();
+        if (!isDividendFresh(lastDivDate)) {
+            return CalculatedValue.error("Not stable dividends probably? Last dividends comes from " + lastDivDate);
+        }
         var divHistory = financeClient.getDividendHistory();
         //assuming divs paid quarterly
         var orderedDivs = divHistory.getOrderedDividends();
         Collections.reverse(orderedDivs);
+
         var lastYear = orderedDivs.stream()
                 .filter(it -> orderedDivs.indexOf(it) < 4)
                 .map(DividendEvent::getAmount)
@@ -112,6 +119,10 @@ public class YFinanceService {
         var dpsGrowth = lastYear.subtract(threeYearsBefore).divide(threeYearsBefore, MathContext.DECIMAL64)
                 .setScale(4, RoundingMode.CEILING);
         log.info("3 years dps growth is: {}%", dpsGrowth.multiply(BigDecimal.valueOf(100)));
-        return dpsGrowth;
+        return CalculatedValue.present(dpsGrowth);
+    }
+
+    private boolean isDividendFresh(LocalDate lastDivDate) {
+        return lastDivDate.isBefore(LocalDate.now().minusMonths(6));
     }
 }

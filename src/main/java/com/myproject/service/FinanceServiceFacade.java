@@ -1,5 +1,6 @@
 package com.myproject.service;
 
+import com.myproject.model.CalculatedValue;
 import com.myproject.model.FullEvaluation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -135,7 +136,7 @@ public class FinanceServiceFacade {
         }
     }
 
-    public BigDecimal getDpsGrowth() {
+    public CalculatedValue<BigDecimal> getDpsGrowth() {
         try {
             return yFinanceService.getDpsGrowth();
         } catch (Exception e) {
