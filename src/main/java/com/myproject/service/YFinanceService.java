@@ -95,7 +95,7 @@ public class YFinanceService {
 
     public CalculatedValue<BigDecimal> getDpsGrowth() {
         var lastDivDate = financeClient.getKeyStatistics().getLastDividend();
-        if (!isDividendFresh(lastDivDate)) {
+        if (isDividendOld(lastDivDate)) {
             return CalculatedValue.error("Not stable dividends probably? Last dividends comes from " + lastDivDate);
         }
         var divHistory = financeClient.getDividendHistory();
@@ -122,7 +122,7 @@ public class YFinanceService {
         return CalculatedValue.present(dpsGrowth);
     }
 
-    private boolean isDividendFresh(LocalDate lastDivDate) {
+    private boolean isDividendOld(LocalDate lastDivDate) {
         return lastDivDate.isBefore(LocalDate.now().minusMonths(6));
     }
 }
