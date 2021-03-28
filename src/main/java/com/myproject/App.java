@@ -13,30 +13,15 @@ public class App {
 
     public static void main(String[] args) {
         Stream.of(
-//                "KHC",
-//                "SFM",
-//                "TSN",
-                "PPC"
-//                "LIN",
-//                "APD",
-//                "SHW",
-//                "FCX",
-//                "ECL",
-//                "NEM",
-//                "DOW",
-//                "DD",
-//                "CTVA",
-//                "PPG",
-//                "IFF",
-//                "LYB",
-//                "BLL",
-//                "VMC",
-//                "IP",
-//                "NUE",
-//                "MLM",
-//                "AMCR",
-//                "ALB",
-//                "CE"
+                "F",
+                "ROST",
+                "CMG",
+                "MAR",
+                "APTV",
+                "ORLY",
+                "HLT",
+                "YUM",
+                "AZO"
         )
                 .map(String::toUpperCase)
                 .map(it -> financeService(it).getFullEvaluation().toGoogleSheetSplit())

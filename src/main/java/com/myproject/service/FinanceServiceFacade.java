@@ -38,11 +38,21 @@ public class FinanceServiceFacade {
     }
 
     public BigDecimal getEarningsChange() {
-        return macroTrendsFinanceService.getEarningsChange();
+        try {
+            return macroTrendsFinanceService.getEarningsChange();
+        } catch (Exception e) {
+            log.error("{} Exception when counting 10y earnings change", ticker, e);
+            return null;
+        }
     }
 
-    public int getNumberSignificantYoYEpsFalls() {
-        return macroTrendsFinanceService.getNumberSignificantYoYEpsFalls();
+    public Integer getNumberSignificantYoYEpsFalls() {
+        try {
+            return macroTrendsFinanceService.getNumberSignificantYoYEpsFalls();
+        } catch (Exception e) {
+            log.error("{} Exception when counting number oof significant YoY EPS falls", ticker, e);
+            return null;
+        }
     }
 
     public BigDecimal getTrailingPe() {
@@ -55,7 +65,12 @@ public class FinanceServiceFacade {
     }
 
     public BigDecimal getInterestCoverage() {
-        return yFinanceService.getInterestCoverageRatio();
+        try {
+            return yFinanceService.getInterestCoverageRatio();
+        } catch (Exception e) {
+            log.error("{} Exception when fetching interest coverage ratio", ticker, e);
+            return null;
+        }
     }
 
     public BigDecimal getPB() {
@@ -68,9 +83,15 @@ public class FinanceServiceFacade {
     }
 
     public BigDecimal getGrahamCriteria() {
-        var grahamCriteria = getTrailingPe().multiply(getPB());
-        log.info("Graham criteria: {}", grahamCriteria);
-        return grahamCriteria;
+        try {
+            var grahamCriteria = getTrailingPe().multiply(getPB());
+            log.info("Graham criteria: {}", grahamCriteria);
+            return grahamCriteria;
+        } catch (Exception e) {
+            log.error("{} Exception when counting Graham Criteria", ticker, e);
+            return null;
+        }
+
     }
 
     private Boolean isNegative10YearTrailingNetIncomePresent() {
@@ -141,7 +162,7 @@ public class FinanceServiceFacade {
             return yFinanceService.getDpsGrowth();
         } catch (Exception e) {
             log.error("{} Exception when counting divs paid", ticker, e);
-            return null;
+            return CalculatedValue.error(e.getMessage());
         }
     }
 

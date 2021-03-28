@@ -16,7 +16,7 @@ public class FullEvaluation {
     BigDecimal priceToBook;
     Boolean negative10YearTrailingNetIncomePresent;
     BigDecimal trailing10YearsEarningsChangeInPercent;
-    int significantYearOverYearEpsFallings;
+    Integer significantYearOverYearEpsFallings;
     Boolean positiveEBITDA;
     BigDecimal interestCoverage;
     BigDecimal totalLiabilitiesToCurrentAssetsRatio;
